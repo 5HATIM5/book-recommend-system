@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import BookListPage from "../pages/BookListPage";
 import ProtectedRoute from "../auth/ProtectedRoute";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Global/Navbar";
 import NotFound from "../pages/NotFoundPage";
 import ProtectedLogin from "./ProtectedLogin";
 import BookDetailPage from "../pages/BookDetailPage";

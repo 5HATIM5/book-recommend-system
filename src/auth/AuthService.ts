@@ -1,5 +1,5 @@
 import { AuthProvider, AuthResponse } from "@toolpad/core/SignInPage";
-import { authenticateUser } from "../api/AuthApi";
+import { authenticateUser } from "./AuthApi";
 import { fetchBooks } from "../redux/slice/BookSlice";
 import { AppDispatch } from "../redux/store";
 

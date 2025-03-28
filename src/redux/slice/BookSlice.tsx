@@ -5,16 +5,17 @@ import axios from "axios";
 export interface Book {
   id: string;
   title: string;
-  author: string;
-  description: string;
-  pageCount: number;
-  averageRating:number,
-  ratingsCount: number;
-  publishedDate: string;
-  genre: string;
   publisher: string;
-  imageUrl: string;
+  publishedDate: string;
+  author: string;
+  genre: string;
+  description: string;
   userRating: number;
+  userReviews: string[];
+  ratingsCount: number;
+  averageRating: number;
+  pageCount: number;
+  imageUrl: string;
 }
 
 // Shape of API response
@@ -27,9 +28,10 @@ interface APIBook {
     publisher?: string;
     pageCount?: number;
     ratingsCount?: number;
-    averageRating:number,
+    averageRating: number;
     publishedDate?: string;
     userRating?: number;
+    userReviews?: string[];
     description?: string;
     imageLinks?: {
       thumbnail?: string;
@@ -51,30 +53,61 @@ const initialState: BooksState = {
   error: null,
 };
 
-// Async thunk for fetching books
+// Async thunk for fetching books from multiple genres
 export const fetchBooks = createAsyncThunk<Book[], void>(
   "books/fetchBooks",
   async () => {
-    const response = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?q=fiction"
-    );
+    try {
+      // Fetch both fiction and horror books
+      const fictionResponse = await axios.get(
+        "https://www.googleapis.com/books/v1/volumes?q=fiction"
+      );
+      const horrorResponse = await axios.get(
+        "https://www.googleapis.com/books/v1/volumes?q=horror"
+      );
 
-    return response.data.items.map((book: APIBook) => ({
-      id: book.id,
-      title: book.volumeInfo.title || "Unknown Title",
-      author: book.volumeInfo.authors?.join(", ") || "Unknown Author",
-      description: book.volumeInfo.description || "No description available",
-      genre: book.volumeInfo.categories?.join(", ") || "Unknown Genre",
-      publisher: book.volumeInfo.publisher || "Unknown Publisher",
-      pageCount: book.volumeInfo.pageCount || 0,
-      userRating: 0,
-      averageRating: book.volumeInfo.averageRating || 0,
-      ratingsCount: book.volumeInfo.ratingsCount || 0, 
-      publishedDate: book.volumeInfo.publishedDate || "Unknown Date",
-      imageUrl:
-        book.volumeInfo.imageLinks?.thumbnail ||
-        "https://via.placeholder.com/250x350",
-    }));
+      // Extract books from both responses
+      const fictionBooks = fictionResponse.data.items.map((book: APIBook) => ({
+        id: book.id,
+        title: book.volumeInfo.title || "Unknown Title",
+        publisher: book.volumeInfo.publisher || "Unknown Publisher",
+        publishedDate: book.volumeInfo.publishedDate || "Unknown Date",
+        author: book.volumeInfo.authors?.join(", ") || "Unknown Author",
+        genre: book.volumeInfo.categories?.join(", ") || "Fiction",
+        description: book.volumeInfo.description || "No description available",
+        userRating: 0,
+        userReviews: [],
+        ratingsCount: book.volumeInfo.ratingsCount || 0,
+        averageRating: book.volumeInfo.averageRating || 0,
+        pageCount: book.volumeInfo.pageCount || 0,
+        imageUrl:
+          book.volumeInfo.imageLinks?.thumbnail ||
+          "https://via.placeholder.com/250x350",
+      }));
+
+      const horrorBooks = horrorResponse.data.items.map((book: APIBook) => ({
+        id: book.id,
+        title: book.volumeInfo.title || "Unknown Title",
+        publisher: book.volumeInfo.publisher || "Unknown Publisher",
+        publishedDate: book.volumeInfo.publishedDate || "Unknown Date",
+        author: book.volumeInfo.authors?.join(", ") || "Unknown Author",
+        genre: book.volumeInfo.categories?.join(", ") || "Horror",
+        description: book.volumeInfo.description || "No description available",
+        userRating: 0,
+        userReviews: [],
+        ratingsCount: book.volumeInfo.ratingsCount || 0,
+        averageRating: book.volumeInfo.averageRating || 0,
+        pageCount: book.volumeInfo.pageCount || 0,
+        imageUrl:
+          book.volumeInfo.imageLinks?.thumbnail ||
+          "https://via.placeholder.com/250x350",
+      }));
+
+      // Merge both arrays
+      return [...fictionBooks, ...horrorBooks];
+    } catch (error) {
+      throw new Error("Failed to fetch books");
+    }
   }
 );
 
@@ -94,6 +127,26 @@ const bookSlice = createSlice({
         book.userRating = rating;
       }
     },
+    addBookReview: (
+      state,
+      action: PayloadAction<{ bookId: string; review: string }>
+    ) => {
+      const { bookId, review } = action.payload;
+      const book = state.books.find((b) => b.id === bookId);
+      if (book) {
+        book.userReviews.push(review);
+      }
+    },
+    removeBookReview: (
+      state,
+      action: PayloadAction<{ bookId: string; reviewIndex: number }>
+    ) => {
+      const { bookId, reviewIndex } = action.payload;
+      const book = state.books.find((b) => b.id === bookId);
+      if (book) {
+        book.userReviews.splice(reviewIndex, 1);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,7 +156,7 @@ const bookSlice = createSlice({
       })
       .addCase(fetchBooks.fulfilled, (state, action: PayloadAction<Book[]>) => {
         state.loading = false;
-        state.books = action.payload;
+        state.books = [...state.books, ...action.payload];
       })
       .addCase(fetchBooks.rejected, (state, action) => {
         state.loading = false;
@@ -113,7 +166,7 @@ const bookSlice = createSlice({
 });
 
 // Export actions
-export const { setBookRating } = bookSlice.actions;
+export const { setBookRating, addBookReview ,removeBookReview} = bookSlice.actions;
 
 // Export reducer
 export default bookSlice.reducer;

@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Box, Paper, TextField, Typography } from "@mui/material";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import PolygonTop from "../components/PolygonTop";
-import PolygonBottom from "../components/PolygonBottom";
+import { DataGrid, GridColDef, GridPaginationModel, GridToolbar } from "@mui/x-data-grid";
+import PolygonTop from "../components/Global/PolygonTop";
+import PolygonBottom from "../components/Global/PolygonBottom";
 import { useNavigate } from "react-router";
 import { Book } from "../redux/slice/BookSlice";
-import Loader from "../components/Loader";
-import StatusAlert from "../components/StatusAlert";
+import Loader from "../components/Global/Loader";
+import StatusAlert from "../components/Global/StatusAlert";
 import { useState } from "react";
 
 // Extend Book with an additional index field
@@ -20,6 +20,10 @@ const BookListPage = () => {
     (state: RootState) => state.books
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
+    page: 0,
+    pageSize: 10,
+  });
 
   let navigate = useNavigate();
 
@@ -39,7 +43,7 @@ const BookListPage = () => {
       book.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Define DataGrid columns
+  //DataGrid columns
   const columns: GridColDef<BookWithIndex>[] = [
     { field: "index", headerName: "ID", width: 80 },
     { field: "title", headerName: "Title", flex: 1 },
@@ -59,7 +63,7 @@ const BookListPage = () => {
         alignItems: "center",
       }}
     >
-      {/* Search Field Positioned at Top Center */}
+      {/* Search Field */}
       <Box
         sx={{
           position: "absolute",
@@ -97,7 +101,7 @@ const BookListPage = () => {
         }}
       />
 
-      {/* Table Container */}
+      {/* Books Table List */}
       <Paper
         sx={{
           height: 500,
@@ -111,8 +115,9 @@ const BookListPage = () => {
         <DataGrid
           rows={filteredBooks}
           columns={columns}
-          pageSizeOptions={[5, 10, 20]}
           pagination
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           slots={{ toolbar: GridToolbar }}
           onRowClick={(params) => {
             const bookId: string = params.row.id;

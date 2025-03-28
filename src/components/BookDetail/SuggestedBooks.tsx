@@ -1,7 +1,7 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, Button, Paper, Typography } from "@mui/material";
 
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 

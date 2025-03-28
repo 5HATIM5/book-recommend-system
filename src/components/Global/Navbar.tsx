@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router";
+import { persistor } from "../../redux/store";
 
 // Navigation links
 const navigation: {
@@ -21,17 +22,18 @@ const navigation: {
   },
 ];
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("user") 
+    localStorage.removeItem("user");
+    persistor.purge();
     navigate("/login", { replace: true });
   };
 
   return (
     <AppBar
-      position="fixed"
       sx={{
         backgroundColor: "transparent",
         transition: "all 0.3s ease-in-out",

@@ -5,14 +5,14 @@ interface ProtectedRouteProps {
 }
 
 // ProtectedRoute Component: Restricts access to authenticated users only
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const storedUser =
     sessionStorage.getItem("user") || localStorage.getItem("user");
 
   const user: { email?: string } | null = storedUser
     ? JSON.parse(storedUser)
     : null;
-  const isAuthenticated: boolean = !!(user && user.email);
+  const isAuthenticated = Boolean(user?.email);
 
   return isAuthenticated ? (
     <>{children || <Outlet />}</>

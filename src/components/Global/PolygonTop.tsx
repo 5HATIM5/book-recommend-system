@@ -1,16 +1,15 @@
-import React from "react";
 import { Box } from "@mui/material";
 
 /**
  * PolygonTop component to render a blurred polygon shape at the top of the page.
  */
-const PolygonTop: React.FC = () => {
+const PolygonTop = () => {
   return (
     <Box
       sx={{
         position: "absolute",
         inset: "0 auto auto 0",
-        top: { xs: "-10rem", sm: "-20rem" }, 
+        top: { xs: "-10rem", sm: "-20rem" },
         zIndex: -10, // Lower zIndex for blending
         transform: "translateX(-50%) rotate(30deg)",
         overflow: "hidden",
