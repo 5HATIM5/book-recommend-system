@@ -51,6 +51,29 @@ const BookListPage = () => {
     { field: "genre", headerName: "Genre", flex: 1 },
   ];
 
+  
+  // Custom pagination state (Commented out, enable if needed)
+  /*
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
+  const paginatedBooks = filteredBooks.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
+  const handleNextPage = () => {
+    if ((currentPage + 1) * itemsPerPage < filteredBooks.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  */
   return (
     <Box
       sx={{
@@ -113,7 +136,7 @@ const BookListPage = () => {
         }}
       >
         <DataGrid
-          rows={filteredBooks}
+          rows={filteredBooks} //replace this with paginatedBooks
           columns={columns}
           pagination
           paginationModel={paginationModel}
@@ -127,6 +150,29 @@ const BookListPage = () => {
             cursor: "pointer",
           }}
         />
+
+         {/* Custom Pagination Buttons*/}
+        
+        {/* <Box sx={{ display: "flex", justifyContent: "center", mt: 2, gap: 2 }}>
+          <Button
+            variant="contained"
+            disabled={currentPage === 0}
+            onClick={handlePrevPage}
+          >
+            Previous
+          </Button>
+          <Typography variant="body1">
+            Page {currentPage + 1} of {Math.ceil(filteredBooks.length / itemsPerPage)}
+          </Typography>
+          <Button
+            variant="contained"
+            disabled={(currentPage + 1) * itemsPerPage >= filteredBooks.length}
+            onClick={handleNextPage}
+          >
+            Next
+          </Button>
+        </Box> */}
+       
       </Paper>
 
       <PolygonTop />
