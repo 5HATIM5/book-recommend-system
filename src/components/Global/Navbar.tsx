@@ -1,6 +1,8 @@
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router";
 import { persistor } from "../../redux/store";
+import { clearBooks } from "../../redux/slice/BookSlice";
+import { useDispatch } from "react-redux";
 
 // Navigation links
 const navigation: {
@@ -24,10 +26,11 @@ const navigation: {
 
 const Navbar = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
   const handleLogout = () => {
     sessionStorage.removeItem("user") 
     localStorage.removeItem("user");
+    dispatch(clearBooks());
     persistor.purge();
     navigate("/login", { replace: true });
   };

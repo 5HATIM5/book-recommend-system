@@ -147,6 +147,7 @@ const bookSlice = createSlice({
         book.userReviews.splice(reviewIndex, 1);
       }
     },
+    clearBooks: () => initialState, 
   },
   extraReducers: (builder) => {
     builder
@@ -166,7 +167,7 @@ const bookSlice = createSlice({
 });
 
 // Export actions
-export const { setBookRating, addBookReview ,removeBookReview} = bookSlice.actions;
+export const { setBookRating, addBookReview ,removeBookReview, clearBooks} = bookSlice.actions;
 
 // Export reducer
 export default bookSlice.reducer;
