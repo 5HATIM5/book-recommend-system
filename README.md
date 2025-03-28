@@ -30,12 +30,12 @@ Make sure you have the following installed:
 
 2. **Install dependencies:**
    ```sh
-   yarn install
+   npm install
    ```
 
 3. **Start the development server:**
    ```sh
-   yarn dev
+   npm run dev
    ```
    This will start the app at `http://localhost:5173/` (or another available port).
 
@@ -43,11 +43,12 @@ Make sure you have the following installed:
 ```
 books-app/
 │-- src/
-│   │-- components/   # UI Components (BookDetail, SuggestedBooks, etc.)
-│   │-- pages/        # Pages (BookDetailPage, HomePage)
-│   │-- redux/        # Redux store, slices, and state management
-│   │-- assets/       # Static assets like images
-│   │-- App.tsx       # Main app component
+│   │-- auth/       # Authentication-related logic 
+│   │-- components/ # Reusable UI components (e.g., Navbar, SuggestedBooks)
+│   │-- pages/      # Application pages (e.g., BookDetailPage, Login)
+│   │-- redux/      # Redux store, slices, and state management
+│   │-- routes/     # App routing logic
+│   │-- main.tsx    # Main entry point of the React app
 │-- public/           # Public static files
 │-- README.md         # Project documentation
 │-- package.json      # Project dependencies and scripts
