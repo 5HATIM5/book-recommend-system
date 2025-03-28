@@ -4,8 +4,8 @@ interface User {
   }
   
   const users: User[] = [
-    { email: "admin@example.com", password: "12345678" },
-    { email: "user@example.com", password: "12345678" },
+    { email: "admin@example.com", password: "25467873" },
+    { email: "user@example.com", password: "25467873" },
   ];
   
   export const authenticateUser = (email: string, password: string): boolean => {

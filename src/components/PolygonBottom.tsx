@@ -11,7 +11,7 @@ const PolygonBottom: React.FC = () => {
         position: "absolute",
         inset: "0 auto auto 0",
         top: { xs: "calc(100% - 13rem)", sm: "calc(100% - 30rem)" },
-        zIndex: -20,
+        zIndex: -10,
         transform: "translateX(-50%)",
         overflow: "hidden",
         filter: "blur(60px)",

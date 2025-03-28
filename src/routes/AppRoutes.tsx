@@ -4,6 +4,7 @@ import ProtectedRoute from "../auth/ProtectedRoute";
 import Navbar from "../components/Navbar";
 import NotFound from "../pages/NotFoundPage";
 import ProtectedLogin from "./ProtectedLogin";
+import BookDetailPage from "../pages/BookDetailPage";
 
 // Define application routes
 const router = createBrowserRouter([
@@ -17,6 +18,15 @@ const router = createBrowserRouter([
       <ProtectedRoute> {/* Ensures only authenticated users can access */}
         <Navbar />
         <BookListPage />
+      </ProtectedRoute>
+    ),  
+  },
+  {
+    path: "/books/:id",
+    element: (
+      <ProtectedRoute> {/* Ensures only authenticated users can access */}
+        <Navbar />
+        <BookDetailPage />
       </ProtectedRoute>
     ),  
   },

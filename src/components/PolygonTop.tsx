@@ -11,7 +11,7 @@ const PolygonTop: React.FC = () => {
         position: "absolute",
         inset: "0 auto auto 0",
         top: { xs: "-10rem", sm: "-20rem" }, 
-        zIndex: -20, // Lower zIndex for blending
+        zIndex: -10, // Lower zIndex for blending
         transform: "translateX(-50%) rotate(30deg)",
         overflow: "hidden",
         filter: "blur(60px)", // Stronger blur

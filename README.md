@@ -1,54 +1,60 @@
-# React + TypeScript + Vite
+# Books App 📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+The **Books App** is a React-based web application that allows users to explore a collection of books, view details, rate books, and get recommendations. The app fetches book data from the Google Books API and provides a clean and user-friendly interface to browse books.
 
-Currently, two official plugins are available:
+## Features
+- 📖 Fetches books from the **Google Books API**
+- 🔍 Displays book details (title, author, genre, description, etc.)
+- ⭐ Users can **rate** books
+- 📌 "Want to Read" list functionality
+- 🎯 **Suggested Books** section with randomized recommendations
+- 🛒 "Buy Now" button (placeholder for potential e-commerce integration)
+- ⚡ Built with **Redux Toolkit** for state management
+- 🎨 Styled using **Material UI** for a modern UI/UX
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup & Installation
 
-## Expanding the ESLint configuration
+### Prerequisites
+Make sure you have the following installed:
+- Node.js (v16 or later recommended)
+- Yarn (or npm, but the project uses Yarn)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Steps to Run the Project
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/books-app.git
+   cd books-app
+   ```
+
+2. **Install dependencies:**
+   ```sh
+   yarn install
+   ```
+
+3. **Start the development server:**
+   ```sh
+   yarn dev
+   ```
+   This will start the app at `http://localhost:5173/` (or another available port).
+
+## Project Structure
+```
+books-app/
+│-- src/
+│   │-- components/   # UI Components (BookDetail, SuggestedBooks, etc.)
+│   │-- pages/        # Pages (BookDetailPage, HomePage)
+│   │-- redux/        # Redux store, slices, and state management
+│   │-- assets/       # Static assets like images
+│   │-- App.tsx       # Main app component
+│-- public/           # Public static files
+│-- README.md         # Project documentation
+│-- package.json      # Project dependencies and scripts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## License
+This project is open-source and available under the [MIT License](LICENSE).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+🚀 **Happy Reading!** 📚

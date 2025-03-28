@@ -1,11 +1,14 @@
 import { AuthProvider, AuthResponse } from "@toolpad/core/SignInPage";
 import { authenticateUser } from "../api/AuthApi";
+import { fetchBooks } from "../redux/slice/BookSlice";
+import { AppDispatch } from "../redux/store";
 
 // logIn function: Handles user authentication and navigation
 export const logIn = async (
   provider: AuthProvider,
   formData: FormData,
-  navigate: (path: string) => void
+  navigate: (path: string) => void,
+  dispatch: AppDispatch
 ): Promise<AuthResponse> => {
   return new Promise<AuthResponse>((resolve) => {
     setTimeout(() => {
@@ -30,8 +33,11 @@ export const logIn = async (
         sessionStorage.setItem("user", userData);
       }
 
+      dispatch(fetchBooks()); // Fetch books after login
+
       // Redirect user to books page upon successful login
       navigate("/books");
+
       resolve({ error: undefined });
     }, 500);
   });

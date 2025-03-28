@@ -1,17 +1,25 @@
-// import { useEffect, useState } from "react";
-import { AppBar, Toolbar, Button } from "@mui/material";
+import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router";
 
 // Navigation links
-// const navigation: {
-//   name: string;
-//   href: string;
-//   target: string;
-// }[] = [
-//   { name: "Home", href: "/", target: "_self" },
-//   { name: "Features", href: "/features", target: "_self" },
-//   { name: "About", href: "/about", target: "_self" },
-// ];
+const navigation: {
+  name: string;
+  href: string;
+  target: string;
+}[] = [
+  {
+    name: "Google Books",
+    href: "https://developers.google.com/books",
+    target: "_blank",
+  },
+  { name: "Material UI", href: "https://shorturl.at/qEn3R", target: "_blank" },
+  { name: "Redux", href: "https://redux-toolkit.js.org/", target: "_blank" },
+  {
+    name: "Axios",
+    href: "https://axios-http.com/docs/intro",
+    target: "_blank",
+  },
+];
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -47,7 +55,7 @@ const Navbar: React.FC = () => {
           />
         </Link>
 
-        {/* <Box sx={{ display: "flex", gap: 3 }}>
+        <Box sx={{ display: "flex", gap: 3 }}>
           {navigation.map((item, index) => (
             <Button
               key={index}
@@ -63,7 +71,7 @@ const Navbar: React.FC = () => {
               {item.name}
             </Button>
           ))}
-        </Box> */}
+        </Box>
 
         {/* Contact Button */}
         <Button

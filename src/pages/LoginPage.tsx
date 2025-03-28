@@ -4,6 +4,8 @@ import { useTheme, Theme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router";
 import { logIn } from "../auth/AuthService";
+import { AppDispatch } from "../redux/store";
+import { useDispatch } from "react-redux";
 
 // Authentication providers available for login
 const providers: AuthProvider[] = [
@@ -26,11 +28,12 @@ const BRANDING = {
 const LoginPage = () => {
   const theme: Theme = useTheme(); 
   let navigate = useNavigate(); 
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <Box
       sx={{
-        display: "flex", // Centers the login box
+        display: "flex", 
         justifyContent: "center",
         alignItems: "center",
         width: "100vw",
@@ -42,7 +45,7 @@ const LoginPage = () => {
     >
       <AppProvider branding={BRANDING} theme={theme}>
         <SignInPage
-          signIn={(provider, formData) => logIn(provider, formData, navigate)} 
+          signIn={(provider, formData) => logIn(provider, formData, navigate, dispatch)} 
           providers={providers} 
           slotProps={{
             emailField: { autoFocus: true }, 
