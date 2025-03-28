@@ -6,10 +6,8 @@ The **Books App** is a React-based web application that allows users to explore 
 ## Features
 - 📖 Fetches books from the **Google Books API**
 - 🔍 Displays book details (title, author, genre, description, etc.)
-- ⭐ Users can **rate** books
-- 📌 "Want to Read" list functionality
+- ⭐ Users can **rate** and review books
 - 🎯 **Suggested Books** section with randomized recommendations
-- 🛒 "Buy Now" button (placeholder for potential e-commerce integration)
 - ⚡ Built with **Redux Toolkit** for state management
 - 🎨 Styled using **Material UI** for a modern UI/UX
 
